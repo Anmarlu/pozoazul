@@ -1,11 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/openapi.json",
-      "destination": "/api/openapi.json"
-    },
-    {
-      "source": "/api/(.*)",
+      "source": "/api/((?!openapi\\.json).*)",
       "destination": "/api?path=$1"
     },
     {
