@@ -1,4 +1,4 @@
-import { DEMO_CIRCULARS, DEMO_EVENTS, DEMO_NEWS } from '../src/mocks/demoData';
+import { DEMO_CIRCULARS, DEMO_EVENTS, DEMO_NEWS } from '../src/mocks/demoData.ts';
 
 function json(payload: unknown, status = 200): Response {
   return new Response(JSON.stringify(payload), {
