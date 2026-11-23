@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/openapi.json",
+      "destination": "/api/openapi.json"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api?path=$1"
+    },
+    {
+      "source": "/((?!api/|images/|assets/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
