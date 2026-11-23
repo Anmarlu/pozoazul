@@ -1,0 +1,51 @@
+:root {
+  /* Paleta Institucional Oficial — Azul Rey + Azul Escudo + Marfil y Blanco */
+  --color-brand-primary: #123a7a;
+  --color-brand-primary-hover: #0c2957;
+  --color-brand-secondary: #2b6cb0;
+  --color-brand-secondary-dark: #1a4b8c;
+  --color-surface-canvas: #f5f3eb;
+  --color-surface-elevated: #fcfbf7;
+  --color-surface-tinted: #e8ecf2;
+  --color-accent-sky: #93c5fd;
+  --color-ink-primary: #162133;
+  --color-ink-muted: #445368;
+  --color-ink-on-dark: #f8fafc;
+  --color-ink-on-dark-muted: #d6e2f5;
+  --color-border-subtle: #d6dce5;
+  --color-border-strong: #a9b6c9;
+  --color-feedback-error: #9f2d20;
+
+  /* Tipografía */
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Movimiento — Emil Kowalski curves */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 150ms;
+  --duration-drawer: 220ms;
+
+  /* Escala de lectura controlada por PortalPreferencesContext */
+  --text-scale: 1;
+}
+
+/* Preferencia de tamaño de texto (accesibilidad A+ / A-) */
+:root[data-text-scale='large'] {
+  --text-scale: 1.125;
+}
+
+:root[data-text-scale='xlarge'] {
+  --text-scale: 1.25;
+}
+
+/* Preferencia de contraste reforzado (accesibilidad) */
+:root[data-contrast='high'] {
+  --color-surface-canvas: #ffffff;
+  --color-surface-elevated: #f7f9fc;
+  --color-surface-tinted: #e4ebf5;
+  --color-ink-primary: #0b1220;
+  --color-ink-muted: #243247;
+  --color-border-subtle: #6b7c96;
+  --color-brand-primary: #0a2554;
+}

@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+@import './styles/tokens.css';
+
+@theme {
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-primary-hover: var(--color-brand-primary-hover);
+  --color-brand-secondary: var(--color-brand-secondary);
+  --color-brand-secondary-dark: var(--color-brand-secondary-dark);
+  --color-surface-canvas: var(--color-surface-canvas);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-surface-tinted: var(--color-surface-tinted);
+  --color-accent-sky: var(--color-accent-sky);
+  --color-ink-primary: var(--color-ink-primary);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-on-dark: var(--color-ink-on-dark);
+  --color-ink-on-dark-muted: var(--color-ink-on-dark-muted);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-strong: var(--color-border-strong);
+  --color-feedback-error: var(--color-feedback-error);
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-size: calc(16px * var(--text-scale));
+    background-color: var(--color-surface-canvas);
+    color: var(--color-ink-primary);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-surface-canvas);
+    color: var(--color-ink-primary);
+    line-height: 1.6;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-ink-primary);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  /* Superficies del navegador tematizadas (Impeccable craft-floor) */
+  ::selection {
+    background-color: var(--color-brand-primary);
+    color: var(--color-ink-on-dark);
+  }
+
+  input,
+  textarea,
+  select {
+    caret-color: var(--color-brand-primary);
+    font-size: max(1rem, 16px); /* Evita auto-zoom en iOS (mobile-native) */
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-accent-sky);
+  }
+}
+
+/* Enlace accesible "Saltar al contenido" */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-brand-primary);
+  color: var(--color-ink-on-dark);
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+/* Retroalimentación táctil sobria (emil-design-eng) */
+.btn-pressable {
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.btn-pressable:active {
+  transform: scale(0.97);
+}
+
+/* Protección contra hover pegajoso en pantallas táctiles (mobile-native) */
+@media (hover: hover) {
+  .hover-brand:hover {
+    background-color: var(--color-brand-primary-hover);
+  }
+
+  .hover-surface:hover {
+    background-color: var(--color-surface-tinted);
+  }
+}
+
+/* Respeto estricto a prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

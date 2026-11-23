@@ -1,0 +1,207 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API REST — Portal Institucional IETA Pozo Azul",
+    "version": "1.0.0",
+    "description": "Especificación OpenAPI 3.0 de los endpoints REST para el Portal Institucional de la Institución Educativa Técnica Agroempresarial Pozo Azul (San Pablo, Sur de Bolívar)."
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Servidor REST local del portal"
+    }
+  ],
+  "tags": [
+    { "name": "Sistema", "description": "Verificación de estado de la API" },
+    { "name": "Noticias", "description": "Publicaciones y novedades institucionales" },
+    { "name": "Eventos", "description": "Calendario escolar institucional" },
+    { "name": "Circulares", "description": "Circulares informativas para la comunidad" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Sistema"],
+        "summary": "Verificar disponibilidad del Mock REST",
+        "responses": {
+          "200": {
+            "description": "Servicio disponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "mode": { "type": "string", "example": "demo-mock-rest" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "tags": ["Noticias"],
+        "summary": "Listar noticias institucionales (DEMO)",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Filtrar por categoría temática",
+            "schema": {
+              "type": "string",
+              "enum": ["institucional", "academico", "agroempresarial", "comunidad"]
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "description": "Búsqueda por texto en título o resumen",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de noticias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/NewsItem" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/{slug}": {
+      "get": {
+        "tags": ["Noticias"],
+        "summary": "Consultar detalle de una noticia por slug",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "muestra-proyectos-productivos-agroempresariales-demo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de la publicación",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NewsItem" }
+              }
+            }
+          },
+          "404": {
+            "description": "Publicación no encontrada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": ["Eventos"],
+        "summary": "Listar próximos eventos escolares (DEMO)",
+        "responses": {
+          "200": {
+            "description": "Listado de eventos ordenados por fecha",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/SchoolEvent" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/circulars": {
+      "get": {
+        "tags": ["Circulares"],
+        "summary": "Listar circulares informativas (DEMO)",
+        "responses": {
+          "200": {
+            "description": "Listado de circulares demostrativas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CircularItem" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NewsItem": {
+        "type": "object",
+        "required": ["id", "slug", "title", "summary", "content", "category", "publishedAt", "isDemo"],
+        "properties": {
+          "id": { "type": "string", "example": "news-01" },
+          "slug": { "type": "string", "example": "muestra-proyectos-productivos-agroempresariales-demo" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "content": { "type": "array", "items": { "type": "string" } },
+          "category": { "type": "string", "enum": ["institucional", "academico", "agroempresarial", "comunidad"] },
+          "publishedAt": { "type": "string", "format": "date", "example": "2026-11-18" },
+          "isDemo": { "type": "boolean", "example": true }
+        }
+      },
+      "SchoolEvent": {
+        "type": "object",
+        "required": ["id", "title", "date", "timeLabel", "location", "audience", "description", "isDemo"],
+        "properties": {
+          "id": { "type": "string", "example": "evt-01" },
+          "title": { "type": "string" },
+          "date": { "type": "string", "format": "date", "example": "2026-11-28" },
+          "timeLabel": { "type": "string" },
+          "location": { "type": "string" },
+          "audience": { "type": "string", "enum": ["estudiantes", "acudientes", "docentes", "comunidad"] },
+          "description": { "type": "string" },
+          "isDemo": { "type": "boolean", "example": true }
+        }
+      },
+      "CircularItem": {
+        "type": "object",
+        "required": ["id", "code", "title", "publishedAt", "audience", "summary", "fileSizeLabel", "isDemo"],
+        "properties": {
+          "id": { "type": "string", "example": "cir-01" },
+          "code": { "type": "string", "example": "CIR-DEMO-001" },
+          "title": { "type": "string" },
+          "publishedAt": { "type": "string", "format": "date" },
+          "audience": { "type": "string" },
+          "summary": { "type": "string" },
+          "fileSizeLabel": { "type": "string" },
+          "isDemo": { "type": "boolean", "example": true }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": { "type": "string", "example": "NOT_FOUND" },
+          "message": { "type": "string", "example": "Publicación no encontrada." }
+        }
+      }
+    }
+  }
+}

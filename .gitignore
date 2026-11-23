@@ -1,0 +1,18 @@
+node_modules
+dist
+coverage
+.env
+.env.local
+*.local
+
+# Archivos locales de planificación y skills de IA (no forman parte del proyecto)
+.agents/
+skills-lock.json
+PRODUCT.md
+REQUIREMENTS.md
+ARCHITECTURE.md
+DESIGN.md
+IMPLEMENTATION_PLAN.md
+ACADEMIC_REQUIREMENTS.md
+SKILLS_USAGE.md
+PROJECT_GRAPH.md
