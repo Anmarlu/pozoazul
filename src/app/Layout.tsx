@@ -6,6 +6,7 @@ import { Header } from '../components/layout/Header';
 
 export function Layout() {
   const { pathname } = useLocation();
+  const isHome = pathname === '/';
 
   // Restaura el scroll al inicio en cada cambio de ruta SPA
   useEffect(() => {
@@ -21,10 +22,15 @@ export function Layout() {
       <Header />
       <AccessibilityRail />
 
+      {/* ponytail: branch <main> padding by route instead of duplicating a full-bleed layout wrapper */}
       <main
         id="contenido-principal"
         tabIndex={-1}
-        className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-8 outline-none sm:px-6 lg:px-8"
+        className={
+          isHome
+            ? 'w-full flex-1 outline-none'
+            : 'mx-auto w-full max-w-[1200px] flex-1 px-4 py-8 outline-none sm:px-6 lg:px-8'
+        }
       >
         <Outlet />
       </main>

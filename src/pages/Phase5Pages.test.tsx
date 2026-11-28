@@ -40,6 +40,25 @@ describe('Módulos de Fase 5 (Trámites, Plataformas y Contacto)', () => {
     expect(simatLink).toHaveAttribute('href', 'https://www.sistemamatriculas.gov.co/simat/app');
     expect(simatLink).toHaveAttribute('rel', 'noopener noreferrer');
     expect(screen.getByText(/nunca solicita contraseñas/i)).toBeInTheDocument();
+
+    const expectedPortals: Array<[RegExp, string]> = [
+      [/Ir a Colombia Aprende/i, 'https://www.colombiaaprende.edu.co/'],
+      [/Ir a CNSC/i, 'https://www.cnsc.gov.co/'],
+      [/Ir a ICETEX/i, 'https://web.icetex.gov.co/portal'],
+      [/Ir a ICFES/i, 'https://www.icfes.gov.co/'],
+      [/Ir a Computadores para Educar/i, 'https://www.computadoresparaeducar.gov.co/'],
+      [
+        /Ir a Sistema Maestro/i,
+        'https://sistemamaestro.mineducacion.gov.co/SistemaMaestro/busquedaVacantes.xhtml',
+      ],
+    ];
+
+    for (const [namePattern, expectedHref] of expectedPortals) {
+      const link = screen.getByRole('link', { name: namePattern });
+      expect(link).toHaveAttribute('href', expectedHref);
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    }
   });
 
   it('valida el formulario de contacto en cliente sin simular envío a servidor', async () => {
