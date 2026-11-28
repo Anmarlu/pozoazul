@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  BookOpen,
   ClipboardList,
   ExternalLink,
   FileText,
   GraduationCap,
   Sprout,
 } from 'lucide-react';
+import { HeroCarousel } from '../components/home/HeroCarousel';
 import { StatusState } from '../components/ui/StatusState';
 import { portalRepository } from '../services';
 import type { ApiError, NewsCategory, NewsItem, SchoolEvent } from '../types/portal';
@@ -99,57 +99,11 @@ export function HomePage() {
   const secondaryNews = feed.news.slice(1, 4);
 
   return (
-    <div className="space-y-14">
-      {/* Hero editorial asimétrico (Dirección A) */}
-      <section className="grid items-center gap-8 pt-2 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-7">
-          <h1 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-5xl">
-            Institución Educativa Técnica Agropecuaria y Empresarial Pozo Azul
-          </h1>
-          <p className="mt-5 max-w-[62ch] text-base text-ink-muted sm:text-lg">
-            Establecimiento educativo oficial (DANE 213670000200) ubicado en el corregimiento de
-            Pozo Azul, San Pablo, Sur de Bolívar. Un espacio centralizado para que acudientes,
-            estudiantes y docentes consulten información escolar sin desplazamientos innecesarios.
-          </p>
+    <div>
+      <HeroCarousel />
 
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Link
-              to="/plataformas"
-              className="btn-pressable hover-brand inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-brand-primary px-5 text-sm font-semibold text-ink-on-dark no-underline"
-            >
-              <span>Acceder a SIMAT y SINAI</span>
-              <ArrowRight className="h-4 w-4 text-accent-sky" aria-hidden="true" />
-            </Link>
-            <Link
-              to="/oferta-academica"
-              className="btn-pressable hover-surface inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-border-strong bg-surface-elevated px-5 text-sm font-semibold text-ink-primary no-underline"
-            >
-              <BookOpen className="h-4 w-4 text-brand-primary" aria-hidden="true" />
-              <span>Conocer la oferta académica</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Fotografía territorial optimizada en formato WebP */}
-        <div className="lg:col-span-5">
-          <figure className="m-0 overflow-hidden rounded-lg border border-border-subtle bg-brand-primary">
-            <img
-              src="/images/hero-territorio.webp"
-              alt="Entorno agrícola rural representativo de la vocación técnica agroempresarial de la IETA Pozo Azul"
-              width={960}
-              height={720}
-              fetchPriority="high"
-              decoding="async"
-              className="aspect-[4/3] w-full object-cover"
-            />
-            <figcaption className="border-t border-white/10 px-4 py-2.5 text-xs text-ink-on-dark-muted">
-              Vocación rural y formación técnica agroempresarial en San Pablo, Sur de Bolívar.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      {/* Franja de accesos rápidos (2x2 móvil, 4 columnas escritorio) */}
+      <div className="mx-auto max-w-[1200px] space-y-14 px-4 py-12 sm:px-6 lg:px-8">
+        {/* Franja de accesos rápidos (2x2 móvil, 4 columnas escritorio) */}
       <section aria-labelledby="accesos-rapidos-titulo">
         <div className="flex items-baseline justify-between gap-4">
           <h2 id="accesos-rapidos-titulo" className="text-2xl font-semibold">
@@ -368,6 +322,7 @@ export function HomePage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
